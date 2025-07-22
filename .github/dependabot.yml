@@ -1,0 +1,47 @@
+version: 2
+updates:
+  # Maintain dependencies for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "docker"
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      actions-deps:
+        patterns:
+          - "actions/*"
+
+  # Check for updates to npm packages in the Dockerfile
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "npm"
+    # The "versioning-strategy" determines how Dependabot will update your
+    # package requirements.
+    versioning-strategy: auto
+    # Ignore updates to node-red (allow only security updates)
+    ignore:
+      - dependency-name: "node-red"
+        update-types: ["version-update:semver-patch", "version-update:semver-minor"]
+    # Allow up to 5 npm dependencies to be updated in a single PR
+    groups:
+      node-red-dependencies:
+        patterns:
+          - "node-red-*"
