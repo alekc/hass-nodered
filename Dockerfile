@@ -1,4 +1,4 @@
-FROM nodered/node-red:3.1.15-18
+FROM nodered/node-red:4.0.9-20
 
 RUN npm install node-red-contrib-actionflows@2.1.2 \
         # https://flows.nodered.org/node/node-red-contrib-actionflows
